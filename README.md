@@ -1,5 +1,7 @@
 # Murdoku Planer
 
+Komplett mit Claude gebaut. 
+
 Eine kleine statische Seite, um Murdoku-Rätsel nachzubauen und zu lösen, ohne ins Buch zu schreiben.
 Kein Build, keine Abhängigkeiten – nur `index.html`, `styles.css`, `app.js`.
 
