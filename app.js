@@ -557,6 +557,21 @@ function renderPanel() {
       list,
     ]));
 
+    const fl = el('div', 'legend');
+    const legRow = (key, txt) => {
+      const d = el('div');
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'icon'); svg.setAttribute('viewBox', '0 0 24 24');
+      svg.style.color = key === 'tisch' ? '#7a5b3a' : 'var(--ink-soft)';
+      const use = document.createElementNS(NS, 'use'); use.setAttribute('href', '#ic-' + key);
+      svg.appendChild(use); d.appendChild(svg);
+      d.appendChild(document.createTextNode(' ' + txt));
+      fl.appendChild(d);
+    };
+    legRow('tisch', 'braun = Blocker, nicht belegbar');
+    legRow('stuhl', 'grau = Blocker, aber belegbar');
+    p.appendChild(section('Möbel', [fl]));
+
     p.appendChild(section('Regeln', [
       checkbox('Reihe & Spalte nach Lösung sperren', state.opts.lockLines, v => commit(() => { state.opts.lockLines = v; })),
       checkbox('Opfer sperrt Reihe & Spalte', state.opts.victimLocks, v => commit(() => { state.opts.victimLocks = v; })),
