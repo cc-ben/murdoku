@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Murdoku Planer</title>
+<meta name="description" content="Rätselblatt für Murdoku nachbauen: Raster, Wände, Fenster, Möbel, Verdächtige, Notizen und Lösung.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕵️</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" width="0" height="0">
+  <symbol id="ic-tisch" viewBox="0 0 24 24">
+    <rect x="2.5" y="7.5" width="19" height="3.2" rx="1.2"/>
+    <path d="M5.5 10.7v8M18.5 10.7v8"/>
+  </symbol>
+  <symbol id="ic-pflanze" viewBox="0 0 24 24">
+    <path d="M7 14h10l-1.4 6.5h-7.2z"/>
+    <path d="M12 14c0-3.6-2.4-6-6-6 0 3.6 2.4 6 6 6z"/>
+    <path d="M12 14c0-3.6 2.4-6 6-6 0 3.6-2.4 6-6 6z"/>
+    <path d="M12 14V9"/>
+  </symbol>
+  <symbol id="ic-fernseher" viewBox="0 0 24 24">
+    <rect x="2.5" y="4.5" width="19" height="12.5" rx="1.6"/>
+    <path d="M12 17v2.5M8.5 19.5h7"/>
+  </symbol>
+  <symbol id="ic-regal" viewBox="0 0 24 24">
+    <rect x="3.5" y="3" width="17" height="18" rx="1.4"/>
+    <path d="M3.5 9h17M3.5 15h17M9 3v6M15 15v6"/>
+  </symbol>
+  <symbol id="ic-statue" viewBox="0 0 24 24">
+    <rect x="6" y="18.5" width="12" height="3" rx="1"/>
+    <circle cx="12" cy="5.5" r="2.4"/>
+    <path d="M12 8c-2.4 0-3.6 2-3.6 5s.8 5.5.8 5.5h5.6s.8-2.5.8-5.5S14.4 8 12 8z"/>
+  </symbol>
+  <symbol id="ic-bett" viewBox="0 0 24 24">
+    <path d="M2.5 6.5v13"/>
+    <rect x="2.5" y="10.5" width="19" height="7" rx="1.6"/>
+    <rect x="5" y="12.5" width="5" height="3.2" rx="1"/>
+  </symbol>
+  <symbol id="ic-stuhl" viewBox="0 0 24 24">
+    <rect x="6" y="3.5" width="12" height="3" rx="1.2"/>
+    <rect x="4.5" y="11" width="15" height="3" rx="1.2"/>
+    <path d="M7 6.5V11M17 6.5V11M6.5 14v6M17.5 14v6"/>
+  </symbol>
+  <symbol id="ic-teppich" viewBox="0 0 24 24">
+    <rect x="4" y="5.5" width="16" height="13" rx="2"/>
+    <rect x="7.5" y="9" width="9" height="6" rx="1.2"/>
+    <path d="M2 7v10M22 7v10"/>
+  </symbol>
+</svg>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">🕵️</span>
+    <span class="brand-text">Murdoku <em>Planer</em></span>
+  </div>
+
+  <nav class="modes" id="modes" role="tablist" aria-label="Modus">
+    <button class="mode" data-mode="layout" role="tab" aria-selected="true">Layout</button>
+    <button class="mode" data-mode="draft" role="tab" aria-selected="false">Notizen</button>
+    <button class="mode" data-mode="solution" role="tab" aria-selected="false">Lösung</button>
+  </nav>
+
+  <div class="topactions">
+    <button class="btn ghost" id="btn-undo" title="Rückgängig (Strg+Z)">↶</button>
+    <button class="btn ghost" id="btn-redo" title="Wiederholen (Strg+Y)">↷</button>
+    <button class="btn ghost" id="btn-print" title="Drucken / als PDF speichern">Drucken</button>
+    <button class="btn ghost" id="btn-panel" title="Seitenleiste ein-/ausblenden">☰</button>
+  </div>
+</header>
+
+<div class="toolbar" id="toolbar"></div>
+
+<main class="layout" id="main">
+  <section class="stage">
+    <div class="sheet">
+      <div class="sheet-head">
+        <input class="puzzle-title" id="puzzle-title" placeholder="Rätsel-Titel (z. B. Fall 14)" maxlength="60">
+        <div class="culprit">
+          <label for="culprit-select">Der Mord wurde begangen von …</label>
+          <select id="culprit-select"></select>
+        </div>
+      </div>
+
+      <div class="boardwrap">
+        <div class="corner"></div>
+        <div class="collabels" id="collabels"></div>
+        <div class="rowlabels" id="rowlabels"></div>
+        <div class="board" id="board">
+          <div class="cells" id="cells"></div>
+          <svg class="edges" id="edges" preserveAspectRatio="none"></svg>
+        </div>
+      </div>
+
+      <p class="hint" id="hint"></p>
+    </div>
+  </section>
+
+  <aside class="panel" id="panel"></aside>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="file-import" accept="application/json,.json" hidden>
+
+<script src="app.js"></script>
+</body>
+</html>
